@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "lib": ["ES2020"],
+    "target": "ES2020",
+
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["src/**/*", "webpack.config.ts"]
+}
