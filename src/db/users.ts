@@ -10,12 +10,12 @@ export const createUser = async (
     RETURNING id`)[0];
 }
 
-export const getUser = async (
-  { id, select }: { id: User['id'], select?: (keyof User)[] }
+export const getUser = async <T extends keyof User>(
+  { by, select }: { by: [T, User[T]], select?: (keyof User)[] }
 ) => {
   return (await sql<User[]>`
     SELECT ${select ? sql(select) : sql`*`} FROM users
-    WHERE id = ${id}`)[0];
+    WHERE ${sql(`${by[0]}`)} = ${by[1]}`)[0];
 }
 
 export const getUsers = async (
