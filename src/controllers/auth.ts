@@ -41,14 +41,19 @@ auth.post('/register', async (req, res) => {
     && req.body.email.length
     && req.body.password.length
   ) {
-    const hash = await bcryptjs.hash(req.body.password, 10);
-    await createUser({
-      name: req.body.name,
-      email: req.body.email,
-      password: hash,
-      registrationDate: new Date()
-    });
-    res.sendStatus(201);
+    const user = await getUser({ by: ['name', req.body.name] });
+    if (user) {
+      res.status(409).json({ message: `user with name ${req.body.name} already exists` });
+    } else {
+      const hash = await bcryptjs.hash(req.body.password, 10);
+      await createUser({
+        name: req.body.name,
+        email: req.body.email,
+        password: hash,
+        registrationDate: new Date()
+      });
+      res.sendStatus(201);
+    }
   } else {
     res.status(400).json({ message: 'you must pass truthy strings' });
   }
