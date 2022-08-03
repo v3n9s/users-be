@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack --env ISDEV",
-    "build": "webpack"
+    "build": "webpack",
+    "start": "node ./dist"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
