@@ -1,4 +1,4 @@
-import './config';
+import config from './config';
 import express from 'express';
 import cors from 'cors';
 import auth from './controllers/auth';
@@ -12,4 +12,4 @@ app.use(jwtRouter);
 app.use(auth);
 app.use('/users', users);
 
-app.listen(3000);
+app.listen(config.PORT);
