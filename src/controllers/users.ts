@@ -47,7 +47,7 @@ users.route('/:id')
   .patch(async (req, res) => {
     const id = +req.params.id;
     const isBlocked = !!req.body.isBlocked;
-    await updateUser({ id, isBlocked });
+    await updateUser(isBlocked ? { id, isBlocked, sessions: [] } : { id, isBlocked });
     res.status(200).json({ message: `successfully updated user with id ${id}` });
   })
   .delete(async (req, res) => {
