@@ -25,7 +25,7 @@ auth.post('/login', async (req, res) => {
         res.sendStatus(500);
       }
     } else {
-      res.status(400).json({ message: 'wrong name or(and) password' });
+      res.status(404).json({ message: 'wrong name or(and) password' });
     }
   } else {
     res.status(400).json({ message: 'you must pass truthy strings' });
