@@ -19,7 +19,11 @@ auth.post('/login', async (req, res) => {
       const token = jwt.sign(safeUser, config.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 * 7
       });
-      if (await updateUser({ id: user.id, sessions: [...user.sessions, token] })) {
+      if (await updateUser({
+        id: user.id,
+        sessions: [...user.sessions, token],
+        lastLoginDate: new Date()
+      })) {
         res.status(201).json({token});
       } else {
         res.sendStatus(500);
