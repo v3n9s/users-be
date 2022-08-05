@@ -26,7 +26,7 @@ auth.post('/login', async (req, res) => {
         sessions: [...user.sessions, token],
         lastLoginDate: new Date()
       })) {
-        res.status(201).json({token});
+        res.status(201).json({token, id: user.id});
       } else {
         res.sendStatus(500);
       }
