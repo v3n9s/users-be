@@ -14,7 +14,9 @@ auth.post('/login', async (req, res) => {
     && req.body.password.length
   ) {
     const user = await getUser({ by: ['name', req.body.name] });
-    if (user && await bcryptjs.compare(req.body.password, user.password)) {
+    if (user?.isBlocked) {
+      res.status(403).json({ message: 'You can\'t login because this user is blocked' });
+    } else if (user && await bcryptjs.compare(req.body.password, user.password)) {
       const { password, sessions, ...safeUser } = user;
       const token = jwt.sign(safeUser, config.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 * 7
